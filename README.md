@@ -59,6 +59,7 @@ jobs:
 | `table_id` | BigQuery Table ID for PR Info. | No | `github_pr_info` |
 | `comments_table_id` | BigQuery Table ID for Comments. | No | `github_pr_comments` |
 | `github_token` | GitHub Token for API requests. | No | `${{ github.token }}` |
+| `pr_number` | PR Number (for manual execution). | No | - |
 
 ## BigQuery Schema
 

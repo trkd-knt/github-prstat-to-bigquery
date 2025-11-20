@@ -59,6 +59,7 @@ jobs:
 | `table_id` | PR 情報用の BigQuery テーブル ID。 | いいえ | `github_pr_info` |
 | `comments_table_id` | コメント用の BigQuery テーブル ID。 | いいえ | `github_pr_comments` |
 | `github_token` | API リクエスト用の GitHub トークン。 | いいえ | `${{ github.token }}` |
+| `pr_number` | PR 番号（手動実行用）。 | いいえ | - |
 
 ## BigQuery スキーマ
 

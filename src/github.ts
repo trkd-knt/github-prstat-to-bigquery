@@ -20,10 +20,10 @@ export interface PRComment {
   comment_time: string | null;
 }
 
-export async function getPRInfo(token: string, context: Context): Promise<PRInfo> {
-  const prNumber = context.payload.pull_request?.number;
+export async function getPRInfo(token: string, context: Context, prNumberOverride?: number): Promise<PRInfo> {
+  const prNumber = prNumberOverride || context.payload.pull_request?.number;
   if (!prNumber) {
-    throw new Error('No pull_request number found. This action must be triggered by a pull_request event.');
+    throw new Error('No pull_request number found. This action must be triggered by a pull_request event or provided with a pr_number input.');
   }
 
   const octokit = github.getOctokit(token);
@@ -46,10 +46,10 @@ export async function getPRInfo(token: string, context: Context): Promise<PRInfo
   };
 }
 
-export async function getPRComments(token: string, context: Context): Promise<PRComment[]> {
+export async function getPRComments(token: string, context: Context, prNumberOverride?: number): Promise<PRComment[]> {
   const octokit = github.getOctokit(token);
   const { owner, repo } = context.repo;
-  const prNumber = context.payload.pull_request?.number;
+  const prNumber = prNumberOverride || context.payload.pull_request?.number;
 
   if (!prNumber) {
     throw new Error('No pull_request number found.');

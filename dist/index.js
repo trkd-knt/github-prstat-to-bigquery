@@ -65503,10 +65503,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getPRInfo = getPRInfo;
 exports.getPRComments = getPRComments;
 const github = __importStar(__nccwpck_require__(3228));
-async function getPRInfo(token, context) {
-    const prNumber = context.payload.pull_request?.number;
+async function getPRInfo(token, context, prNumberOverride) {
+    const prNumber = prNumberOverride || context.payload.pull_request?.number;
     if (!prNumber) {
-        throw new Error('No pull_request number found. This action must be triggered by a pull_request event.');
+        throw new Error('No pull_request number found. This action must be triggered by a pull_request event or provided with a pr_number input.');
     }
     const octokit = github.getOctokit(token);
     const { owner, repo } = context.repo;
@@ -65525,10 +65525,10 @@ async function getPRInfo(token, context) {
         commit_count: pr.commits || null,
     };
 }
-async function getPRComments(token, context) {
+async function getPRComments(token, context, prNumberOverride) {
     const octokit = github.getOctokit(token);
     const { owner, repo } = context.repo;
-    const prNumber = context.payload.pull_request?.number;
+    const prNumber = prNumberOverride || context.payload.pull_request?.number;
     if (!prNumber) {
         throw new Error('No pull_request number found.');
     }
@@ -65638,6 +65638,8 @@ async function run() {
         const commentsTableId = core.getInput('comments_table_id', { required: true });
         const accessToken = core.getInput('access_token', { required: true });
         const githubToken = core.getInput('github_token') || process.env.GITHUB_TOKEN || '';
+        const prNumberInput = core.getInput('pr_number');
+        const prNumber = prNumberInput ? parseInt(prNumberInput, 10) : undefined;
         const bqClient = new bigquery_1.BigQueryClient(projectId, datasetId, tableId, commentsTableId, accessToken);
         // 1. Get PR Info
         core.info('Fetching PR Info...');
@@ -65645,7 +65647,7 @@ async function run() {
         if (!githubToken) {
             throw new Error('github_token is required to fetch PR details.');
         }
-        const prInfo = await (0, github_1.getPRInfo)(githubToken, github.context);
+        const prInfo = await (0, github_1.getPRInfo)(githubToken, github.context, prNumber);
         const now = new Date();
         const insertedAt = now.toISOString();
         // Legacy insertId format: repository + "_pr_" + pr_number + "_" + now
@@ -65663,7 +65665,7 @@ async function run() {
         core.info('PR Info inserted successfully.');
         // 2. Get PR Comments
         core.info('Fetching PR Comments and Reviews...');
-        const comments = await (0, github_1.getPRComments)(githubToken, github.context);
+        const comments = await (0, github_1.getPRComments)(githubToken, github.context, prNumber);
         if (comments.length > 0) {
             const commentRows = comments.map(c => ({
                 insertId: `${c.repository}_comment_${c.comment_id}_${insertedAt}`,

@@ -11,6 +11,8 @@ async function run() {
     const commentsTableId = core.getInput('comments_table_id', { required: true });
     const accessToken = core.getInput('access_token', { required: true });
     const githubToken = core.getInput('github_token') || process.env.GITHUB_TOKEN || '';
+    const prNumberInput = core.getInput('pr_number');
+    const prNumber = prNumberInput ? parseInt(prNumberInput, 10) : undefined;
 
     const bqClient = new BigQueryClient(projectId, datasetId, tableId, commentsTableId, accessToken);
 
@@ -20,7 +22,7 @@ async function run() {
     if (!githubToken) {
       throw new Error('github_token is required to fetch PR details.');
     }
-    const prInfo = await getPRInfo(githubToken, github.context);
+    const prInfo = await getPRInfo(githubToken, github.context, prNumber);
     const now = new Date();
     const insertedAt = now.toISOString();
 
@@ -42,7 +44,7 @@ async function run() {
 
     // 2. Get PR Comments
     core.info('Fetching PR Comments and Reviews...');
-    const comments = await getPRComments(githubToken, github.context);
+    const comments = await getPRComments(githubToken, github.context, prNumber);
 
     if (comments.length > 0) {
       const commentRows = comments.map(c => ({

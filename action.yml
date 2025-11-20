@@ -22,6 +22,9 @@ inputs:
     description: 'GitHub Token'
     required: false
     default: ${{ github.token }}
+  pr_number:
+    description: 'PR Number (for manual execution)'
+    required: false
 runs:
   using: 'node20'
   main: 'dist/index.js'
