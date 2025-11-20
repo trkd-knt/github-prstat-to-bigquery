@@ -1,0 +1,27 @@
+name: 'GitHub PR Data to BigQuery'
+description: 'Sends Pull Request metadata and comments to BigQuery when a PR is closed.'
+inputs:
+  project_id:
+    description: 'GCP Project ID'
+    required: true
+  dataset_id:
+    description: 'BigQuery Dataset ID'
+    required: true
+  table_id:
+    description: 'BigQuery Table ID for PR Info'
+    required: true
+    default: 'github_pr_info'
+  comments_table_id:
+    description: 'BigQuery Table ID for PR Comments'
+    required: true
+    default: 'github_pr_comments'
+  access_token:
+    description: 'GCP Access Token'
+    required: true
+  github_token:
+    description: 'GitHub Token'
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
