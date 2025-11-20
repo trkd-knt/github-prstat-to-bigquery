@@ -47,6 +47,7 @@ jobs:
           # table_id: 'github_pr_info'
           # comments_table_id: 'github_pr_comments'
           # github_token: ${{ secrets.GITHUB_TOKEN }}
+          # pr_number: 123 # オプション: 手動実行用
 ```
 
 ## 入力 (Inputs)
