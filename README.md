@@ -9,6 +9,21 @@ This GitHub Action extracts Pull Request metadata (including comments and review
 -   **Deduplication**: Generates unique `insertId`s to prevent duplicate rows during retries.
 -   **Fresh Data**: Fetches the latest PR state from the GitHub API to ensure accuracy (e.g., final commit count).
 
+## Setup
+
+Before using this action, you need to create the BigQuery dataset and tables. A setup script is provided for convenience.
+
+1.  Ensure you have the `bq` command-line tool installed and authenticated (part of Google Cloud SDK).
+2.  Run the setup script:
+
+```bash
+# Make the script executable
+chmod +x setup/create_bq_tables.sh
+
+# Run the script
+./setup/create_bq_tables.sh -p YOUR_PROJECT_ID -d github_pr_data
+```
+
 ## Usage
 
 Add this action to your workflow file (e.g., `.github/workflows/bq-export.yml`).
@@ -41,7 +56,7 @@ jobs:
       - uses: ./ # Or your-repo/github-prstat-to-bigquery@v1
         with:
           project_id: 'my-gcp-project-id'
-          dataset_id: 'github_medops_ehr'
+          dataset_id: 'github_pr_data'
           access_token: ${{ steps.auth.outputs.access_token }}
           # Optional inputs (defaults shown)
           # table_id: 'github_pr_info'

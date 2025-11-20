@@ -9,6 +9,21 @@
 -   **重複排除**: 再試行時に重複行が発生しないように、一意の `insertId` を生成します。
 -   **最新データ**: GitHub API から最新の PR 状態を取得し、正確性（最終的なコミット数など）を保証します。
 
+## セットアップ
+
+このアクションを使用する前に、BigQuery のデータセットとテーブルを作成する必要があります。便利なセットアップスクリプトが用意されています。
+
+1.  `bq` コマンドラインツール（Google Cloud SDK の一部）がインストールされ、認証されていることを確認してください。
+2.  セットアップスクリプトを実行します:
+
+```bash
+# スクリプトに実行権限を付与
+chmod +x setup/create_bq_tables.sh
+
+# スクリプトを実行
+./setup/create_bq_tables.sh -p YOUR_PROJECT_ID -d github_pr_data
+```
+
 ## 使用方法
 
 ワークフローファイル（例: `.github/workflows/bq-export.yml`）にこのアクションを追加してください。
@@ -41,7 +56,7 @@ jobs:
       - uses: ./ # または your-repo/github-prstat-to-bigquery@v1
         with:
           project_id: 'my-gcp-project-id'
-          dataset_id: 'github_medops_ehr'
+          dataset_id: 'github_pr_data'
           access_token: ${{ steps.auth.outputs.access_token }}
           # オプション入力（デフォルト値を表示）
           # table_id: 'github_pr_info'

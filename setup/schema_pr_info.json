@@ -1,0 +1,50 @@
+[
+    {
+        "name": "repository",
+        "type": "STRING",
+        "mode": "REQUIRED",
+        "description": "Repository name in owner/repo format"
+    },
+    {
+        "name": "pr_number",
+        "type": "INTEGER",
+        "mode": "REQUIRED",
+        "description": "Pull Request number"
+    },
+    {
+        "name": "branch_name",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Name of the head branch"
+    },
+    {
+        "name": "author",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Username of the PR author"
+    },
+    {
+        "name": "created_at",
+        "type": "TIMESTAMP",
+        "mode": "NULLABLE",
+        "description": "Timestamp when the PR was created"
+    },
+    {
+        "name": "latest_commit",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "SHA of the latest commit"
+    },
+    {
+        "name": "commit_count",
+        "type": "INTEGER",
+        "mode": "NULLABLE",
+        "description": "Total number of commits in the PR"
+    },
+    {
+        "name": "inserted_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED",
+        "description": "Timestamp when this record was inserted"
+    }
+]

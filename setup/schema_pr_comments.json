@@ -1,0 +1,44 @@
+[
+    {
+        "name": "repository",
+        "type": "STRING",
+        "mode": "REQUIRED",
+        "description": "Repository name in owner/repo format"
+    },
+    {
+        "name": "pr_number",
+        "type": "INTEGER",
+        "mode": "REQUIRED",
+        "description": "Pull Request number"
+    },
+    {
+        "name": "comment_id",
+        "type": "INTEGER",
+        "mode": "REQUIRED",
+        "description": "ID of the comment or review"
+    },
+    {
+        "name": "comment_type",
+        "type": "STRING",
+        "mode": "REQUIRED",
+        "description": "Type of comment: issue_comment, review_comment, or review"
+    },
+    {
+        "name": "comment_author",
+        "type": "STRING",
+        "mode": "NULLABLE",
+        "description": "Username of the comment author"
+    },
+    {
+        "name": "comment_time",
+        "type": "TIMESTAMP",
+        "mode": "NULLABLE",
+        "description": "Timestamp when the comment was created"
+    },
+    {
+        "name": "inserted_at",
+        "type": "TIMESTAMP",
+        "mode": "REQUIRED",
+        "description": "Timestamp when this record was inserted"
+    }
+]
