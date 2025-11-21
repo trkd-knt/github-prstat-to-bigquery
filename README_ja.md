@@ -92,6 +92,9 @@ jobs:
 | `created_at` | TIMESTAMP | PR 作成日時 |
 | `latest_commit` | STRING | Head コミットの SHA |
 | `commit_count` | INTEGER | コミット数 |
+| `additions` | INTEGER | 追加行数 |
+| `deletions` | INTEGER | 削除行数 |
+| `changed_files` | INTEGER | 変更ファイル数 |
 | `inserted_at` | TIMESTAMP | 挿入日時 |
 
 ### `github_pr_comments`

@@ -92,6 +92,9 @@ This action expects two tables to exist in your BigQuery dataset.
 | `created_at` | TIMESTAMP | PR creation time |
 | `latest_commit` | STRING | SHA of the head commit |
 | `commit_count` | INTEGER | Number of commits |
+| `additions` | INTEGER | Number of additions |
+| `deletions` | INTEGER | Number of deletions |
+| `changed_files` | INTEGER | Number of changed files |
 | `inserted_at` | TIMESTAMP | Time of insertion |
 
 ### `github_pr_comments`

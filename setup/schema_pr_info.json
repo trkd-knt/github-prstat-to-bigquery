@@ -42,6 +42,24 @@
         "description": "Total number of commits in the PR"
     },
     {
+        "name": "additions",
+        "type": "INTEGER",
+        "mode": "NULLABLE",
+        "description": "Number of additions"
+    },
+    {
+        "name": "deletions",
+        "type": "INTEGER",
+        "mode": "NULLABLE",
+        "description": "Number of deletions"
+    },
+    {
+        "name": "changed_files",
+        "type": "INTEGER",
+        "mode": "NULLABLE",
+        "description": "Number of changed files"
+    },
+    {
         "name": "inserted_at",
         "type": "TIMESTAMP",
         "mode": "REQUIRED",

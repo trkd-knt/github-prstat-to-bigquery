@@ -9,6 +9,9 @@ export interface PRInfo {
   created_at: string | null;
   latest_commit: string | null;
   commit_count: number | null;
+  additions: number | null;
+  deletions: number | null;
+  changed_files: number | null;
 }
 
 export interface PRComment {
@@ -43,6 +46,9 @@ export async function getPRInfo(token: string, context: Context, prNumberOverrid
     created_at: pr.created_at || null,
     latest_commit: pr.head.sha || null,
     commit_count: pr.commits || null,
+    additions: pr.additions || null,
+    deletions: pr.deletions || null,
+    changed_files: pr.changed_files || null,
   };
 }
 

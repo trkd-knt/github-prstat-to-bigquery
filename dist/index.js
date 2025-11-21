@@ -65523,6 +65523,9 @@ async function getPRInfo(token, context, prNumberOverride) {
         created_at: pr.created_at || null,
         latest_commit: pr.head.sha || null,
         commit_count: pr.commits || null,
+        additions: pr.additions || null,
+        deletions: pr.deletions || null,
+        changed_files: pr.changed_files || null,
     };
 }
 async function getPRComments(token, context, prNumberOverride) {
